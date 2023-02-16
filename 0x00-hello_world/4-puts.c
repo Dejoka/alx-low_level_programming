@@ -1,7 +1,7 @@
 #include <stdio.h>
 /**
- * main - C program that prints exactly a statement follow by a new line
- * Return: Always 0 (Success)
+ * main - A program that prints a line with put function
+ * Return: 0 (Success)
  */
 init main(void)
 {
