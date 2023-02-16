@@ -1,6 +1,6 @@
 #include <stdio.h>
 /**
- * main - A C program that point a line to the standard error
+ * main - A C program that points a line to the standard error
  * Return: 1 (Success)
  */
 int main(void)
