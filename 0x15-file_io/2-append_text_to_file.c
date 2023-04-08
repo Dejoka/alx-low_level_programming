@@ -20,14 +20,8 @@ int append_text_to_file(const char *filename, char *text_content)
 	op = open(filename, O_WRONLY | O_APPEND);
 	writ = write(op, text_content, len);
 
-	if (op == -1)
-	{
+	if (op == -1 || writ == -1)
 		return (-1);
-	}
-	if (writ == -1)
-	{
-		return (-1);
-	}
 	if (text_content != NULL)
 		for (len = 0; text_content[len];)
 			len++;
