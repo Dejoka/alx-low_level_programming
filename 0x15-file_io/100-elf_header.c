@@ -21,21 +21,21 @@ void close_elf(int elf);
  * check_elf - Checks if a file is an ELF file.
  * @e_ident: Pointer to an array containing the ELF magic numbers.
  *
- * Description: If the file is not an ELF file - exit code 98.
- */
-void check_elf(unsigned char *e_ident)
-{
-	int index;
-
-	for (index = 0; index < 4; index++)
+	 * Description: If the file is not an ELF file - exit code 98.
+	 */
+	void check_elf(unsigned char *e_ident)
 	{
-		if (e_ident[index] != 127 &&
-		    e_ident[index] != 'E' &&
-		    e_ident[index] != 'L' &&
-		    e_ident[index] != 'F')
+		int index;
+
+		for (index = 0; index < 4; index++)
 		{
-			dprintf(STDERR_FILENO, "Error: Not an ELF file\n");
-			exit(98);
+			if (e_ident[index] != 127 &&
+			    e_ident[index] != 'E' &&
+			    e_ident[index] != 'L' &&
+			    e_ident[index] != 'F')
+			{
+				dprintf(STDERR_FILENO, "Error: Not an ELF file\n");
+				exit(98);
 		}
 	}
 }
@@ -268,10 +268,10 @@ void close_elf(int elf)
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
 	Elf64_Ehdr *header;
-	int o, r;
+	int op, rd;
 
-	o = open(argv[1], O_RDONLY);
-	if (o == -1)
+	op = open(argv[1], O_RDONLY);
+	if (op == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 		exit(98);
@@ -279,15 +279,15 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	header = malloc(sizeof(Elf64_Ehdr));
 	if (header == NULL)
 	{
-		close_elf(o);
+		close_elf(op);
 		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 		exit(98);
 	}
-	r = read(o, header, sizeof(Elf64_Ehdr));
-	if (r == -1)
+	rd = read(op, header, sizeof(Elf64_Ehdr));
+	if (rd == -1)
 	{
 		free(header);
-		close_elf(o);
+		close_elf(op);
 		dprintf(STDERR_FILENO, "Error: `%s`: No such file\n", argv[1]);
 		exit(98);
 	}
@@ -304,6 +304,6 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 	print_entry(header->e_entry, header->e_ident);
 
 	free(header);
-	close_elf(o);
+	close_elf(op);
 	return (0);
 }
