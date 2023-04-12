@@ -10,7 +10,7 @@ void print_binary(unsigned long int n)
 	int i, count = 0;
 	unsigned long int pri_bi;
 
-	for (i = 63; i >= 0; i--)
+	for (i = 0; i <= 63; i--)
 	{
 		pri_bi = n >> i;
 
@@ -22,6 +22,6 @@ void print_binary(unsigned long int n)
 		else if (count)
 			_putchar('0');
 	}
-	if (!count)
+	if (count == 0)
 		_putchar('0');
 }
